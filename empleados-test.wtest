@@ -1,0 +1,72 @@
+import empleadosV1.*
+
+describe "Tests de Empleado Permanente" {
+    
+    const empleadoPermanente = new EmpleadoPermanente(
+        nombre = "Juan",
+        direccion = "Pellegrini 123",
+        estadoCivil = "Soltero",
+        fechaNacimiento = 1992,
+        sueldoBasico = 1000, 
+        cantidadHijos = 2, 
+        antiguedad = 5,
+        estaCasado = true
+    )
+    
+    test "El sueldo bruto de un empleado permanente se calcula correctamente" {
+        assert.equals(1650, empleadoPermanente.sueldoBruto())
+    }
+    
+    test "Las retenciones de un empleado permanente se calculan correctamente" {
+        
+        assert.equals(452.5, empleadoPermanente.getRetenciones())
+    }
+    
+    test "El sueldo neto de un empleado permanente se calcula correctamente" {
+        
+        assert.equals(1197.5, empleadoPermanente.sueldoNeto())
+    }
+}
+
+describe "Tests de Empleado Temporal" {
+    
+    const empleadoTemporalMayor = new EmpleadoTemporal(
+        fechaFinDesignacion = 1980,
+        nombre= "Pepe",
+        direccion = "Aramburu 123",
+        estadoCivil = "Soltero",
+        sueldoBasico = 1000, 
+        cantidadHorasExtra = 10,
+        fechaNacimiento = 1970
+    )
+    
+    const empleadoTemporalJoven = new EmpleadoTemporal(
+        fechaFinDesignacion = 1980,
+        nombre= "Santiago",
+        direccion = "Azopardo 1223",
+        estadoCivil = "Soltero",
+        sueldoBasico = 1000, 
+        cantidadHorasExtra = 10,
+        fechaNacimiento = 2000
+    )
+    
+    test "El sueldo bruto de un empleado temporal se calcula correctamente" {
+        assert.equals(1400, empleadoTemporalMayor.sueldoBruto())
+    }
+    
+    test "Las retenciones de un empleado temporal mayor a 50 años se calculan correctamente" {
+        assert.equals(305, empleadoTemporalMayor.getRetenciones())
+    }
+    
+    test "El sueldo neto de un empleado temporal mayor a 50 años se calcula correctamente" {
+        assert.equals(1095, empleadoTemporalMayor.sueldoNeto())
+    }
+    
+    test "Las retenciones de un empleado temporal menor a 50 años se calculan correctamente" {
+        assert.equals(280, empleadoTemporalJoven.getRetenciones())
+    }
+    
+    test "El sueldo neto de un empleado temporal menor a 50 años se calcula correctamente" {
+        assert.equals(1120, empleadoTemporalJoven.sueldoNeto())
+    }
+}

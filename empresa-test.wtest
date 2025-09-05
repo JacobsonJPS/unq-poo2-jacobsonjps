@@ -1,0 +1,88 @@
+import empresaV1.*
+import empleadosV1.*
+
+describe "Tests de la Empresa" {
+	
+	const empresa = new Empresa(nombre = "Mi Empresa", cuit = "30-12345678-9")
+	
+	// Sueldo Bruto: 1650, Retenciones: 452.5, Sueldo Neto: 1197.5
+	const empleadoPermanente1 = new EmpleadoPermanente(
+		nombre = "Juan Perez",
+		direccion = "Calle Falsa 123",
+		estadoCivil = "Casado",
+		fechaNacimiento = 1985,
+		sueldoBasico = 1000, 
+		cantidadHijos = 2, 
+		antiguedad = 5,
+		estaCasado = true
+	) 
+	
+	// Sueldo Bruto: 1850, Retenciones: 482.5, Sueldo Neto: 1367.5
+	const empleadoPermanente2 = new EmpleadoPermanente(
+		nombre = "Ana Gomez",
+		direccion = "Avenida Siempreviva 742",
+		estadoCivil = "Soltera",
+		fechaNacimiento = 1975,
+		sueldoBasico = 1200, 
+		cantidadHijos = 1, 
+		antiguedad = 10,
+		estaCasado = false
+	)
+	
+	// Sueldo Bruto: 1400, Retenciones: 355, Sueldo Neto: 1045
+	const empleadoTemporal1 = new EmpleadoTemporal(
+		nombre = "Carlos Lopez",
+		direccion = "Boulevard de los Sueños Rotos 45",
+		estadoCivil = "Divorciado",
+		fechaNacimiento = 1970,
+		fechaFinDesignacion = 2025,
+		sueldoBasico = 1000, 
+		cantidadHorasExtra = 10
+	)
+	
+	// Sueldo Bruto: 1100, Retenciones: 245, Sueldo Neto: 855
+	const empleadoTemporal2 = new EmpleadoTemporal(
+		nombre = "Maria Rodriguez",
+		direccion = "Pasaje del Olvido 89",
+		estadoCivil = "Soltera",
+		fechaNacimiento = 2000,
+		fechaFinDesignacion = 2025,
+		sueldoBasico = 900, 
+		cantidadHorasExtra = 5
+	)
+	
+	method initialize() {
+		empresa.empleados().add(empleadoPermanente1)
+		empresa.empleados().add(empleadoPermanente2)
+		empresa.empleados().add(empleadoTemporal1)
+		empresa.empleados().add(empleadoTemporal2)
+	}
+	
+	test "El monto total de sueldos netos se calcula correctamente" {
+		
+		assert.equals(4465, empresa.montoTotal())
+	}
+	
+	test "El monto total de sueldos brutos se calcula correctamente" {
+		assert.equals(6000, empresa.montoTotalBruto())
+	}
+	
+	test "El monto total de retenciones se calcula correctamente" {
+		assert.equals(1535, empresa.montoTotalRetenciones())
+	}
+	
+	test "La liquidacion de sueldos genera la cantidad correcta de recibos" {
+		empresa.recibos().clear()
+		empresa.liquidacionSueldos()
+		assert.equals(4, empresa.recibos().size())
+	}
+	
+	test "La liquidacion de sueldos genera un recibo con los datos correctos" {
+		empresa.recibos().clear()
+		empresa.liquidacionSueldos()
+		const reciboJuan = empresa.recibos().find({recibo => recibo.nombre() == "Juan Perez"})
+		assert.equals("Juan Perez", reciboJuan.nombre())
+		assert.equals("Calle Falsa 123", reciboJuan.direccion())
+		assert.equals(1197.5, reciboJuan.sueldoNeto())
+	}
+}
