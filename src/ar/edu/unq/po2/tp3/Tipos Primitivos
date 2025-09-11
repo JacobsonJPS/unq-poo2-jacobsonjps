@@ -1,0 +1,100 @@
+4. Examinar las expresiones
+
+
+s.length();              // 3
+t.length();              // Error: variable t not initialized
+l + a;                   // Error: symbol l not found  
+a.toUpperCase();         // "ABC"
+"Libertad".indexOf("r"); // 4
+"Universidad".lastIndexOf('i'); // 8
+"Quilmes".substring(2,4); // "il"
+(a.length() + a).startsWith("a"); // false
+s == a;                  // true
+a.substring(1,3).equals("bc"); // true
+
+====================================================================================================================
+
+5. Tipos Primitivos
+
+1. ¿Qué son los tipos de datos primitivos?
+Los tipos de datos primitivos en Java son los tipos básicos fundamentales que no son objetos. 
+Son los bloques de construcción más simples del lenguaje y representan valores simples. Java tiene 8 tipos primitivos:
+
+byte: 8-bit entero con signo (-128 a 127)
+short: 16-bit entero con signo (-32,768 a 32,767)
+int: 32-bit entero con signo (-2³¹ a 2³¹-1)
+long: 64-bit entero con signo (-2⁶³ a 2⁶³-1)
+float: 32-bit punto flotante (IEEE 754)
+double: 64-bit punto flotante (IEEE 754)
+boolean: true o false
+char: 16-bit carácter Unicode (0 a 65,535)
+
+
+====================================================================================================================
+
+
+
+2. ¿Cuál es la diferencia entre un int y un Integer?
+La principal diferencia es que:
+int: Es un tipo primitivo, no es un objeto, ocupa 4 bytes de memoria, y no puede ser null.
+Integer: Es una clase wrapper (envoltorio) que encapsula un valor int primitivo. Es un objeto, ocupa más memoria, 
+puede ser null, y tiene métodos útiles.
+
+Diferencias clave:
+int es más eficiente en memoria y rendimiento
+Integer puede ser usado en colecciones (List<Integer>, etc.)
+Integer puede ser null
+Integer tiene métodos como parseInt(), valueOf(), etc.
+Integer permite autoboxing/unboxing automático
+
+
+====================================================================================================================
+
+
+
+3. Valores predeterminados de variables de instancia
+int: Su valor predeterminado es 0
+Integer: Su valor predeterminado es null
+
+Prueba en Eclipse:
+
+java
+public class PruebaTipos {
+    private int variableInt;        // Valor predeterminado: 0
+    private Integer variableInteger; // Valor predeterminado: null
+    
+    public void mostrarValores() {
+        System.out.println("int: " + variableInt);
+        System.out.println("Integer: " + variableInteger);
+    }
+}
+
+Al ejecutar:
+
+text
+int: 0
+Integer: null
+
+
+====================================================================================================================
+
+4. Variables de método (variables locales)
+Para variables locales (dentro de métodos):
+
+int: No tiene valor predeterminado, debe ser inicializada explícitamente
+Integer: No tiene valor predeterminado, debe ser inicializada explícitamente
+
+public void pruebaVariablesLocales() {
+    int localInt;        // Error de compilación si no se inicializa
+    Integer localInteger; // Error de compilación si no se inicializa
+    
+    // System.out.println(localInt);    // Error
+    // System.out.println(localInteger); // Error
+    
+    localInt = 5;        // Debe inicializarse antes de usarse
+    localInteger = 10;   // Debe inicializarse antes de usarse
+}
+
+Diferencia crucial: Las variables de instancia tienen valores predeterminados, pero las variables locales deben ser inicializadas explícitamente antes de usarse, de lo contrario habrá error de compilación.
+
+====================================================================================================================

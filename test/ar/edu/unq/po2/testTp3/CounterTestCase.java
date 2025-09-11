@@ -53,4 +53,52 @@ public class CounterTestCase {
         int amount = counter.getMultipleOf(3);
         assertEquals(2, amount); // Los múltiplos de 3 son 3 y 9
     }
+    
+    @Test
+    public void testNumeroConMayorCantidadDePares() {
+        // Arrange: Se crea un nuevo contador para un escenario limpio.
+        Counter localCounter = new Counter();
+        localCounter.addNumber(13579);  // 0 dígitos pares
+        localCounter.addNumber(246);    // 3 dígitos pares
+        localCounter.addNumber(98864);  // 4 dígitos pares <-- El esperado
+        localCounter.addNumber(12);     // 1 dígito par
+        
+        // Act: Se llama al método que se quiere probar.
+        int numeroGanador = localCounter.getNumeroConMayorCantidadDePares();
+        
+        // Assert: Se comprueba que el resultado es el esperado.
+        assertEquals(98864, numeroGanador);
+    }
+    
+ // Tests para encontrarMultiploMasAlto
+    @Test
+    public void testEncontrarMultiploMasAlto_CasoNormal() {
+        int resultado = Counter.encontrarMultiploMasAlto(3, 9);
+        assertEquals(999, resultado);
+    }
+
+    @Test
+    public void testEncontrarMultiploMasAlto_MultiploMaximo() {
+        int resultado = Counter.encontrarMultiploMasAlto(1, 1000);
+        assertEquals(1000, resultado);
+    }
+
+    @Test
+    public void testEncontrarMultiploMasAlto_SinMultiplo() {
+        int resultado = Counter.encontrarMultiploMasAlto(1001, 1002);
+        assertEquals(-1, resultado);
+    }
+
+    
+    @Test
+    public void testEncontrarMultiploMasAlto_NumerosPrimos() {
+        int resultado = Counter.encontrarMultiploMasAlto(7, 11);
+        assertEquals(924, resultado);
+    }
+
+    @Test
+    public void testEncontrarMultiploMasAlto_MismoNumero() {
+        int resultado = Counter.encontrarMultiploMasAlto(10, 10);
+        assertEquals(1000, resultado);
+    }
 }
